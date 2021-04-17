@@ -2,11 +2,10 @@ import "./App.css";
 import { useState } from "react";
 
 function App() {
-
   const [primary, setPrimary] = useState(hex2hsl(randomHex()));
   const [secondary, setSecondary] = useState(hex2hsl(randomHex()));
   const [accent, setAccent] = useState(hex2hsl(randomHex()));
-  const [stylePrimary, setStylePrimary] = useState(false);
+  const [stylePrimary, setStylePrimary] = useState(true);
 
   function random() {
     return Math.floor(Math.random() * 100) % 255;
@@ -119,69 +118,120 @@ function App() {
   };
 
   const AppCss = {
-    backgroundColor: hslString(stylePrimary ? primary : secondary),
+    backgroundColor: hslString(getSecondaryBg()),
   };
 
-  return (
-    <div className="App" style={AppCss}>
+  const secondaryBgCss = { background: hslString(getSecondaryBg()), color: getContrastingColor(getSecondaryBg()) };
 
+  function getPrimaryBg() {
+    return stylePrimary ? primary : secondary;
+  }
+
+  function getSecondaryBg() {
+    return stylePrimary ? secondary : primary;
+  }
+
+  return (
+    <div className="App">
       {console.log(primary, secondary, accent)}
 
-      <div className="controls-container" style={{ backgroundColor: hslString(stylePrimary ? secondary : primary) }}>
-        <input
-          type="text"
-          name=""
-          id=""
-          placeholder="Enter a Hexcode"
-          onChange={(e) => {
-            if (
-              e.target.value &&
-              e.target.value.length == 7 &&
-              e.target.value.lastIndexOf("#") == 0
-            )
-
-              generateThemeColors(e.target.value);
-          }}
-        />
-
-        <input
-          type="color"
-          name=""
-          id=""
-          placeholder="Enter a Hexcode"
-          onChange={(e) => {
-            generateThemeColors(e.target.value);
-          }}
-        />
-
-        <button
-          style={buttonCSS}
-          onClick={(e) => {
-            const newColor = randomHex();
-            generateThemeColors(newColor);
-          }}
+      <nav
+        style={{
+          backgroundColor: hslString(getPrimaryBg()),
+          color: getContrastingColor(getPrimaryBg()),
+        }}
+      >
+        <div className="nav-brand">Colorninator</div>
+        <div className="nav-options">
+          <div className="nav-option-item">Desktop</div>
+          <div className="nav-option-item">Mobile</div>
+        </div>
+        <div
+          className="nav-search-container"
+          style={{ background: hslString(getSecondaryBg()) }}
         >
-          Surprise Me
-        </button>
+          <input
+            type="text"
+            name=""
+            id=""
+            placeholder="Enter a Hexcode"
+            onChange={(e) => {
+              if (
+                e.target.value &&
+                e.target.value.length == 7 &&
+                e.target.value.lastIndexOf("#") == 0
+              )
+                generateThemeColors(e.target.value);
+            }}
+          />
 
+          <button
+            onClick={(e) => {
+              const newColor = randomHex();
+              generateThemeColors(newColor);
+            }}
+            className="circle"
+          >
+            <i
+              className="fas fa-random"
+              style={{ color: hslString(accent) }}
+            ></i>
+          </button>
+        </div>
+      </nav>
+
+      <section className="canvas" style={{ background: hslString(getPrimaryBg()), color: getContrastingColor(getPrimaryBg()) }}>
+        <h3 className="canvas-h2">Hi, Visitor</h3>
+        <h2 className="canvas-h1">What do you want to learn today ?</h2>
+        <div className="thumbnails">
+          <div className="card" style={secondaryBgCss}>
+            <i className="fab fa-bitcoin card-icon"></i>
+            <p className="card-title">Blockchain</p>
+            <p className="card-sub-title">48 Students</p>
+          </div>
+
+          <div className="card" style={secondaryBgCss}>
+            <i className="fas fa-palette card-icon"></i>
+            <p className="card-title">Photoshop</p>
+            <p className="card-sub-title">69 Students</p>
+          </div>
+
+          <div className="card" style={secondaryBgCss}>
+            <i className="fab fa-android card-icon"></i>
+            <p className="card-title">Android Development</p>
+            <p className="card-sub-title">58 Students</p>
+          </div>
+        </div>
+        <p className="canvas-h1">Your History</p>
+        <div className="history-container">
+          <div className="history-item">
+            <p className="history-item-title">Development</p>
+            <p className="history-item-icon circle">32%</p>
+            <p className="history-item-sub-title"></p>
+          </div>
+          <div className="history-item">
+            <p className="history-item-title">Artificial Intelligence</p>
+            <p className="history-item-icon circle"></p>
+            <p className="history-item-sub-title"></p>
+          </div>
+          <div className="history-item">
+            <p className="history-item-title">Illustrator</p>
+            <p className="history-item-icon circle"></p>
+            <p className="history-item-sub-title"></p>
+          </div>
+        </div>
+      </section>
+
+      <div
+        className="controls-container"
+        style={{
+          backgroundColor: hslString(getSecondaryBg()),
+          color: getContrastingColor(getSecondaryBg())
+        }}
+      >
         <button onClick={saveCurrentTheme} style={buttonCSS}>
           Save Theme
         </button>
-
-        {/* <div className="theme-container">
-          <div
-            className="theme-container-item"
-            style={{ backgroundColor: hslString(primary) }}
-          ></div>
-          <div
-            className="theme-container-item"
-            style={{ backgroundColor: hslString(secondary) }}
-          ></div>
-          <div
-            className="theme-container-item"
-            style={{ backgroundColor: hslString(accent) }}
-          ></div>
-        </div> */}
       </div>
     </div>
   );
