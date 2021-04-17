@@ -44,27 +44,15 @@ nav {
   overflow: hidden;
 }
 
-.canvas {
-  grid-area: canvas;
-  /* border: 1px solid rebeccapurple; */
-  box-shadow: inset 1px 1px 0.3rem #a1a1a1;
-  border-radius: 0.5rem;
-  margin: 1rem;
-  resize: horizontal;
-  overflow: auto;
-  justify-self: center;
-}
-
 .controls-container {
   grid-area: dock;
   display: flex;
   padding: 1rem;
-
   gap: 10rem;
   border-radius: 1rem 1rem 0rem 0rem;
   justify-content: center;
   margin: 0rem 2rem;
-  /* z-index: 5; */
+  z-index: 5;
 }
 
 .theme-container {
@@ -122,14 +110,15 @@ input[type="text"]:focus {
 
 /* Canvas content css */
 .canvas {
+  grid-area: canvas;
   padding: 2rem;
   display: flex;
-  flex-flow: column wrap;
-  overflow: hidden;
+  flex-flow: column nowrap;
   overflow-y: scroll;
   align-items: flex-start;
   justify-content: flex-start;
   text-align: start !important;
+  /* margin: 2rem; */
   gap: 2rem;
 }
 
@@ -166,7 +155,6 @@ input[type="text"]:focus {
   display: flex;
   gap: 1rem;
   flex-flow: column wrap;
-  overflow: hidden;
   align-items: flex-start;
   justify-content: flex-start;
   text-align: start !important;
@@ -195,12 +183,18 @@ input[type="text"]:focus {
   background-color: white;
   opacity: 0.3;
   filter: blur(3px);
+  border-radius: 100rem;
 }
 
 .history-item > .history-item-sub-title {
   grid-column: 1;
   grid-row: 2;
-  padding: 0.3rem;
-  border: 1px solid orange;
+  margin: 0.5rem 0rem;
+  padding: 0.2rem;
   background: linear-gradient(to right, white, transparent);
+  filter: blur(2px);
+}
+
+.block {
+  width: 70%;
 }

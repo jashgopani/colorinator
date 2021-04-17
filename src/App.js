@@ -5,7 +5,7 @@ function App() {
   const [primary, setPrimary] = useState(hex2hsl(randomHex()));
   const [secondary, setSecondary] = useState(hex2hsl(randomHex()));
   const [accent, setAccent] = useState(hex2hsl(randomHex()));
-  const [stylePrimary, setStylePrimary] = useState(true);
+  const [stylePrimary, setStylePrimary] = useState(false);
 
   function random() {
     return Math.floor(Math.random() * 100) % 255;
@@ -18,9 +18,9 @@ function App() {
   }
 
   function randomHex() {
-    let r = random().toString(16);
-    let g = random().toString(16);
-    let b = random().toString(16);
+    let r = getRandomInt(20, 200).toString(16);
+    let g = getRandomInt(20, 200).toString(16);
+    let b = getRandomInt(20, 200).toString(16);
     if (r.length == 1) r = "0" + r;
     if (g.length == 1) g = "0" + g;
     if (b.length == 1) b = "0" + b;
@@ -104,10 +104,50 @@ function App() {
     localStorage.setItem("colorinator", JSON.stringify(saved));
   }
 
+  function hsltohex({ h, s, l }) {
+    s /= 100;
+    l /= 100;
+
+    let c = (1 - Math.abs(2 * l - 1)) * s,
+      x = c * (1 - Math.abs((h / 60) % 2 - 1)),
+      m = l - c / 2,
+      r = 0,
+      g = 0,
+      b = 0;
+
+    if (0 <= h && h < 60) {
+      r = c; g = x; b = 0;
+    } else if (60 <= h && h < 120) {
+      r = x; g = c; b = 0;
+    } else if (120 <= h && h < 180) {
+      r = 0; g = c; b = x;
+    } else if (180 <= h && h < 240) {
+      r = 0; g = x; b = c;
+    } else if (240 <= h && h < 300) {
+      r = x; g = 0; b = c;
+    } else if (300 <= h && h < 360) {
+      r = c; g = 0; b = x;
+    }
+    // Having obtained RGB, convert channels to hex
+    r = Math.round((r + m) * 255).toString(16);
+    g = Math.round((g + m) * 255).toString(16);
+    b = Math.round((b + m) * 255).toString(16);
+
+    // Prepend 0s, if necessary
+    if (r.length == 1)
+      r = "0" + r;
+    if (g.length == 1)
+      g = "0" + g;
+    if (b.length == 1)
+      b = "0" + b;
+
+    return "#" + r + g + b;
+  }
+
   function getContrastingColor(color) {
     // const blacks = ["#303030", "#2b2b2b", "1f1f1f", "1b1c1e"];
     const black = "1b1c1e";
-    let newL = color.l - 40;
+    let newL = color.l - 30;
     if (newL < 0) newL += 100;
     return hslString({ h: color.h, s: Math.abs(color.s), l: newL });
   }
@@ -121,7 +161,15 @@ function App() {
     backgroundColor: hslString(getSecondaryBg()),
   };
 
-  const secondaryBgCss = { background: hslString(getSecondaryBg()), color: getContrastingColor(getSecondaryBg()) };
+  const secondaryBgCss = {
+    background: hslString(getSecondaryBg()),
+    color: getContrastingColor(getSecondaryBg()),
+  };
+
+  const primaryBgCss = {
+    background: hslString(getPrimaryBg()),
+    color: getContrastingColor(getPrimaryBg()),
+  };
 
   function getPrimaryBg() {
     return stylePrimary ? primary : secondary;
@@ -132,7 +180,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App" style={primary}>
       {console.log(primary, secondary, accent)}
 
       <nav
@@ -141,7 +189,7 @@ function App() {
           color: getContrastingColor(getPrimaryBg()),
         }}
       >
-        <div className="nav-brand">Colorninator</div>
+        <div className="nav-brand">Colorinator</div>
         <div className="nav-options">
           <div className="nav-option-item">Desktop</div>
           <div className="nav-option-item">Mobile</div>
@@ -154,6 +202,7 @@ function App() {
             type="text"
             name=""
             id=""
+
             placeholder="Enter a Hexcode"
             onChange={(e) => {
               if (
@@ -163,6 +212,8 @@ function App() {
               )
                 generateThemeColors(e.target.value);
             }}
+
+            style={secondaryBgCss}
           />
 
           <button
@@ -174,13 +225,30 @@ function App() {
           >
             <i
               className="fas fa-random"
-              style={{ color: hslString(accent) }}
+              style={{ color: getContrastingColor(getSecondaryBg()) }}
+            ></i>
+          </button>
+          <button
+            onClick={(e) => {
+              setStylePrimary(!stylePrimary);
+            }}
+            className="circle"
+          >
+            <i
+              className="fas fa-magic"
+              style={{ color: getContrastingColor(getSecondaryBg()) }}
             ></i>
           </button>
         </div>
       </nav>
 
-      <section className="canvas" style={{ background: hslString(getPrimaryBg()), color: getContrastingColor(getPrimaryBg()) }}>
+      <section
+        className="canvas"
+        style={{
+          background: hslString(getPrimaryBg()),
+          color: getContrastingColor(getPrimaryBg()),
+        }}
+      >
         <h3 className="canvas-h2">Hi, Visitor</h3>
         <h2 className="canvas-h1">What do you want to learn today ?</h2>
         <div className="thumbnails">
@@ -202,8 +270,56 @@ function App() {
             <p className="card-sub-title">58 Students</p>
           </div>
         </div>
+        {/* <button className="block" style={{ backgroundColor: hslString(accent) }}>Lorem ipsum dolor sit amet.</button> */}
+
         <p className="canvas-h1">Your History</p>
+
         <div className="history-container">
+          <div className="history-item">
+            <p className="history-item-title">Development</p>
+            <p className="history-item-icon circle">32%</p>
+            <p className="history-item-sub-title"></p>
+          </div>
+          <div className="history-item">
+            <p className="history-item-title">Artificial Intelligence</p>
+            <p className="history-item-icon circle"></p>
+            <p className="history-item-sub-title"></p>
+          </div>
+          <div className="history-item">
+            <p className="history-item-title">Illustrator</p>
+            <p className="history-item-icon circle"></p>
+            <p className="history-item-sub-title"></p>
+          </div>
+          <div className="history-item">
+            <p className="history-item-title">Development</p>
+            <p className="history-item-icon circle">32%</p>
+            <p className="history-item-sub-title"></p>
+          </div>
+          <div className="history-item">
+            <p className="history-item-title">Artificial Intelligence</p>
+            <p className="history-item-icon circle"></p>
+            <p className="history-item-sub-title"></p>
+          </div>
+          <div className="history-item">
+            <p className="history-item-title">Illustrator</p>
+            <p className="history-item-icon circle"></p>
+            <p className="history-item-sub-title"></p>
+          </div>
+          <div className="history-item">
+            <p className="history-item-title">Development</p>
+            <p className="history-item-icon circle">32%</p>
+            <p className="history-item-sub-title"></p>
+          </div>
+          <div className="history-item">
+            <p className="history-item-title">Artificial Intelligence</p>
+            <p className="history-item-icon circle"></p>
+            <p className="history-item-sub-title"></p>
+          </div>
+          <div className="history-item">
+            <p className="history-item-title">Illustrator</p>
+            <p className="history-item-icon circle"></p>
+            <p className="history-item-sub-title"></p>
+          </div>
           <div className="history-item">
             <p className="history-item-title">Development</p>
             <p className="history-item-icon circle">32%</p>
@@ -226,7 +342,7 @@ function App() {
         className="controls-container"
         style={{
           backgroundColor: hslString(getSecondaryBg()),
-          color: getContrastingColor(getSecondaryBg())
+          color: getContrastingColor(getSecondaryBg()),
         }}
       >
         <button onClick={saveCurrentTheme} style={buttonCSS}>
