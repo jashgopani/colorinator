@@ -12,6 +12,10 @@ function App() {
   const [savedThemePalettes, setSavedThemePalettes] = useState(
     fetchSavedThemes
   );
+  const [history, setHistory] = useState({
+    index: 0,
+    themes: [currentTheme],
+  });
 
   function saveCurrentTheme() {
     const saved = JSON.parse(localStorage.getItem("colorinator") ?? "{}");
@@ -89,12 +93,32 @@ function App() {
             type="text"
             className="colorpicker"
             placeholder="Enter Hex Code"
-            style={utils.getCss(stylePrimary ? "secondary" : "primary", currentTheme, true)}
+            style={utils.getCss(
+              stylePrimary ? "secondary" : "primary",
+              currentTheme,
+              true
+            )}
           />
           <div className="controls">
             <Button
               theme={currentTheme}
-              className="control-item"
+              className="circle"
+              style={stylePrimary ? "primary" : "secondary"}
+              onClick={() => {
+                const newIndex =
+                  history.index - 1 < 0 ? history.index : history.index - 1;
+                setHistory({
+                  ...history,
+                  index: newIndex,
+                });
+                setCurrentTheme(history.themes[newIndex]);
+              }}
+            >
+              <i className="fas fa-chevron-left"></i>
+            </Button>
+            <Button
+              theme={currentTheme}
+              className="control-item rounded"
               style={getButtonTheme()}
               onClick={() => {
                 setStylePrimary(!stylePrimary);
@@ -113,9 +137,33 @@ function App() {
               className="control-item"
               style={getButtonTheme()}
               outline
-              onClick={() => setCurrentTheme(utils.randomTheme())}
+              onClick={() => {
+                const newTheme = utils.randomTheme();
+                setHistory({
+                  index: history.index + 1,
+                  themes: [...history.themes, newTheme],
+                });
+                setCurrentTheme(newTheme);
+              }}
             >
               <i className="fas fa-random"></i>&nbsp;&nbsp;&nbsp;Shuffle Colors
+            </Button>
+
+            <Button
+              theme={currentTheme}
+              className="circle"
+              style={stylePrimary ? "primary" : "secondary"}
+              onClick={() => {
+                const newIndex = (history.index + 1) % history.themes.length;
+                setHistory({
+                  ...history,
+                  index: newIndex,
+                });
+
+                setCurrentTheme(history.themes[newIndex]);
+              }}
+            >
+              <i className="fas fa-chevron-right"></i>
             </Button>
           </div>
 
@@ -131,10 +179,11 @@ function App() {
       </section>
 
       {/* Palette Section  */}
-      <section className="palette" style={getSecondaryStyle()}>
+      <section className="palette">
         <h1>Saved Themes</h1>
         <div className="pallete-items">{savedThemePalettes}</div>
       </section>
+      <div></div>
     </div>
   );
 }

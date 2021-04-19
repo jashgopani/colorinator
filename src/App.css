@@ -26,9 +26,8 @@
   display: flex;
   flex-flow: column wrap;
   justify-content: flex-start;
-  align-content: center;
-  padding: 0rem 2rem;
-  padding-bottom: 10rem;
+  align-content: stretch;
+  align-items: stretch;
 }
 
 nav {
@@ -45,7 +44,7 @@ nav {
 section.header-strip {
   display: flex;
   flex-flow: row wrap;
-  justify-content: center;
+  justify-content: space-evenly;
   align-content: center;
   gap: 1rem;
 }
@@ -59,6 +58,8 @@ section.header-strip > * {
 section.svg {
   flex: 0 0 auto !important;
   overflow: hidden;
+  align-self: center;
+  justify-self: flex-start;
 }
 
 section.svg > * {
@@ -106,6 +107,7 @@ section.controls > * {
 }
 
 section.palette {
+  align-self: stretch;
   margin-top: 2rem;
   display: flex;
   flex-flow: column wrap;
@@ -114,6 +116,7 @@ section.palette {
   align-items: stretch;
   text-align: center;
   gap: 1rem;
+  border-radius: 0.5rem;
 }
 
 .pallete-items {
@@ -167,4 +170,9 @@ button {
 
 button:hover {
   filter: opacity(0.85);
+}
+
+.circle {
+  border-radius: 100%;
+  padding: 2rem;
 }

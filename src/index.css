@@ -20,6 +20,5 @@ code {
 }
 
 #root {
-  width: 100vw !important;
   background-color: aqua;
 }

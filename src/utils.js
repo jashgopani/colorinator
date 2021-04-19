@@ -45,9 +45,9 @@ export function randomHex() {
 
 export function randomColor() {
     let color = new Color();
-    color.r = getRandomInt(20, 200).toString(16);
-    color.g = getRandomInt(20, 200).toString(16);
-    color.b = getRandomInt(20, 200).toString(16);
+    color.r = getRandomInt(20, 250).toString(16);
+    color.g = getRandomInt(20, 250).toString(16);
+    color.b = getRandomInt(20, 250).toString(16);
 
     return color;
 }
