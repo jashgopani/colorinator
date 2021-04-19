@@ -1,14 +1,17 @@
 import "./App.css";
 import { useState } from "react";
 import * as utils from "./utils";
-import { ReactComponent as ColorSchemeSvg } from "./colorSchemes.svg";
+import { ReactComponent as ColorSchemeSvg } from "./colorPalette.svg";
 import PaletteItem from "./PaletteItem";
+import ColorSchemeImage from "./colorScheme.png";
+import Button from "./components/Button";
 
 function App() {
-
   const [stylePrimary, setStylePrimary] = useState(false);
-  const [currentTheme, setCurrentTheme] = useState(utils.generateThemeColors(utils.randomColor()));
-  const [savedThemePalettes, setSavedThemePalettes] = useState(fetchSavedThemes);
+  const [currentTheme, setCurrentTheme] = useState(utils.randomTheme());
+  const [savedThemePalettes, setSavedThemePalettes] = useState(
+    fetchSavedThemes
+  );
 
   function saveCurrentTheme() {
     const saved = JSON.parse(localStorage.getItem("colorinator") ?? "{}");
@@ -17,7 +20,9 @@ function App() {
     const secondary = currentTheme.secondary.hex;
     const accent = currentTheme.accent.hex;
     saved[lastIndex] = {
-      primary, secondary, accent
+      primary,
+      secondary,
+      accent,
     };
     localStorage.setItem("colorinator", JSON.stringify(saved));
     setSavedThemePalettes(fetchSavedThemes());
@@ -46,6 +51,10 @@ function App() {
     return stylePrimary ? secondaryBgCss : primaryBgCss;
   }
 
+  function getButtonTheme() {
+    return stylePrimary ? "secondary" : "primary";
+  }
+
   function fetchSavedThemes() {
     if (localStorage.getItem("colorinator")) {
       return Object.values(
@@ -60,53 +69,70 @@ function App() {
 
   return (
     <div className="App" style={getPrimaryStyle()}>
-
       {console.log("currentTheme", currentTheme)}
 
       {/* Header */}
-      <header>
+      <nav>
         <h1 className="nav-brand"> Colorinator</h1>
-      </header>
+      </nav>
 
-      {/* Illustration */}
-      <section className="svg">
-        <ColorSchemeSvg />
-      </section>
+      <section className="header-strip">
+        {/* Illustration */}
+        <section className="svg">
+          <ColorSchemeSvg />
+        </section>
 
-      {/* Input Section */}
-      <section className="controls">
-        <h2 className="tag">Generate themes for your project quickly!</h2>
-        <input
-          type="text"
-          className="colorpicker"
-          placeholder="Enter Hex Code"
-          style={getSecondaryStyle()}
-        />
-        <div className="controls">
-          <button
-            style={accentBgCss}
-            className="control-item"
-            onClick={() => setStylePrimary(!stylePrimary)}
+        {/* Input Section */}
+        <section className="controls">
+          <h2 className="tag">Generate quick themes for your projects !</h2>
+          <input
+            type="text"
+            className="colorpicker"
+            placeholder="Enter Hex Code"
+            style={utils.getCss(stylePrimary ? "secondary" : "primary", currentTheme, true)}
+          />
+          <div className="controls">
+            <Button
+              theme={currentTheme}
+              className="control-item"
+              style={getButtonTheme()}
+              onClick={() => {
+                setStylePrimary(!stylePrimary);
+              }}
+              icon={
+                stylePrimary ? (
+                  <i className="far fa-window-maximize"></i>
+                ) : (
+                  <i className="fas fa-window-maximize"></i>
+                )
+              }
+              innerHtml="Invert theme"
+            />
+            <Button
+              theme={currentTheme}
+              className="control-item"
+              style={getButtonTheme()}
+              outline
+              onClick={() => setCurrentTheme(utils.randomTheme())}
+            >
+              <i className="fas fa-random"></i>&nbsp;&nbsp;&nbsp;Shuffle Colors
+            </Button>
+          </div>
+
+          <Button
+            theme={currentTheme}
+            className="save"
+            style="accent"
+            onClick={saveCurrentTheme}
           >
-            {stylePrimary ? (
-              <i className="far fa-window-maximize"></i>
-            ) : (
-              <i className="fas fa-window-maximize"></i>
-            )}
-          </button>
-          <button className="control-item" style={accentBgCss} onClick={() => setCurrentTheme(utils.generateThemeColors(utils.randomColor()))}>
-            <i className="fas fa-random"></i>
-          </button>
-        </div>
-
-        <button className="save" style={accentBgCss} onClick={saveCurrentTheme}>
-          <i className="fas fa-bookmark"></i>&nbsp;&nbsp;&nbsp;Add to palette
-        </button>
+            <i className="fas fa-bookmark"></i>&nbsp;&nbsp;&nbsp;Add to palette
+          </Button>
+        </section>
       </section>
 
       {/* Palette Section  */}
-      <section className="pallete">
-        <h2>Saved Themes</h2>
+      <section className="palette" style={getSecondaryStyle()}>
+        <h1>Saved Themes</h1>
         <div className="pallete-items">{savedThemePalettes}</div>
       </section>
     </div>

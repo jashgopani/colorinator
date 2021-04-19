@@ -98,7 +98,7 @@ export function hex2hsl(hex) {
     return { h, s, l };
 }
 
-export function generateThemeColors(color) {
+export function generateThemeColors(color, oppositeAccent) {
     console.log("generateThemeColors2");
     const primary = new Color(color.hex);
     const secondary = new Color(color.hex);
@@ -110,10 +110,42 @@ export function generateThemeColors(color) {
 
     //for accent color
     const sign = Math.random([1, -1]);
-    accent.h = primary.h + sign * getRandomInt(30, 40);
+    if (!oppositeAccent)
+        accent.h = primary.h + sign * getRandomInt(30, 40);
+    else
+        accent.h = oppositeValueInRange(primary.h, 0, 255);
     accent.l = primary.l + getRandomInt(5, 10);
 
     return {
         primary, secondary, accent
     }
 }
+
+export function randomTheme() {
+    return generateThemeColors(randomColor(), Math.random([true, false]));
+}
+
+
+export function getCss(style, theme, outline) {
+    let backgroundColor, color;
+    const oppositeColor = style === "primary" ? "secondary" : style === "accent" ? "accent" : "primary";
+    if (style) {
+        backgroundColor = outline ? "transparent" : theme[style].hex;
+        color = outline ? theme[style].hex : getContrastingColor(style === oppositeColor ? theme[oppositeColor] : theme[style]).hex
+    }
+
+    console.log(style, oppositeColor, (outline ? "transparent" : "styleColor"), color);
+
+
+    return {
+        backgroundColor,
+        color,
+        border: outline ? "1px solid " + color : null
+    };
+}
+
+function oppositeValueInRange(num, min, max) {
+    return (min + (max - num));
+}
+
+

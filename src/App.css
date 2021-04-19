@@ -1,57 +1,75 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap");
 
-/* @media only screen and (max-width: 600px) {
+@media only screen and (max-width: 480px) {
   .App {
-    grid-template-rows: auto repeat(auto-fill, 1fr);
-    grid-template-areas:
-      "nav nav"
-      "svg svg"
-      "controls controls"
-      "pallete pallete" !important;
+    padding-bottom: 10vh;
+    overflow: scroll;
   }
-} */
-.App {
-  min-height: 100vh;
-  text-align: center;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  grid-template-rows: 5rem auto;
-  grid-template-areas:
-    "nav nav"
-    "svg controls"
-    "pallete pallete";
-  padding: 0rem 10vw;
-  margin-bottom: 10vh;
-  grid-gap: 1rem;
-  object-fit: scale-down;
+  svg {
+    width: 80vw;
+    height: 80vw;
+    overflow: hidden;
+  }
+
+  .nav-brand {
+    font-size: xx-large;
+  }
+
+  .pallete-item {
+    width: 8rem !important;
+    height: 8rem !important;
+    border: 4px solid white;
+  }
 }
 
-header {
-  grid-area: nav;
-  grid-column: 1 / span 2;
-  grid-row: 1;
+.App {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: flex-start;
+  align-content: center;
+  padding: 0rem 2rem;
+  padding-bottom: 10rem;
+}
+
+nav {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 8vh;
+  font-size: xx-large;
 }
 .nav-brand {
   letter-spacing: 0.2rem;
 }
 
-section.svg {
-  grid-area: svg;
+section.header-strip {
   display: flex;
+  flex-flow: row wrap;
   justify-content: center;
-  align-items: center;
-  max-height: 50vh;
-  object-fit: scale-down;
+  align-content: center;
+  gap: 1rem;
+}
+
+section.header-strip > * {
+  flex: 0 1 auto;
+  align-self: center;
+  justify-self: center;
+}
+
+section.svg {
+  flex: 0 0 auto !important;
+  overflow: hidden;
+}
+
+section.svg > * {
+  mix-blend-mode: luminosity;
+  max-width: 480px;
+  margin: 0px;
 }
 
 section.controls {
-  grid-area: controls;
   display: flex;
-  flex-flow: column nowrap;
+  flex-flow: column wrap;
   justify-content: center;
   align-items: stretch;
   text-align: start;
@@ -87,34 +105,32 @@ section.controls > * {
   flex: 0 1 auto !important;
 }
 
-section.pallete {
-  grid-area: pallete;
+section.palette {
+  margin-top: 2rem;
   display: flex;
   flex-flow: column wrap;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 2rem;
+  justify-content: center;
+  align-content: stretch;
+  align-items: stretch;
+  text-align: center;
+  gap: 1rem;
 }
 
 .pallete-items {
-  flex: 1 1 auto;
   display: flex;
   flex-flow: row wrap;
-  justify-content: flex-start;
-  align-content: stretch;
-  gap: 1rem;
-  padding: 1rem 0rem;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
 }
 
 .pallete-item {
-  flex: 0 1 auto;
   overflow: hidden;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: auto;
   grid-template-areas: "primary secondary accent";
-  max-width: 100vw;
-  min-width: 21rem;
+  min-width: 12rem;
   height: 12rem;
   border: 8px solid white;
   box-shadow: 2px 2px 3px #bebebe;
@@ -126,10 +142,12 @@ section.pallete {
 
 .pallete-item-secondary {
   grid-area: secondary;
+  padding: 1rem;
 }
 
 .pallete-item-accent {
   grid-area: accent;
+  padding: 1rem;
 }
 
 input[type="text"] {
