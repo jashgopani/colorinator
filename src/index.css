@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Questrial&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100&display=swap");
 
 * {
   margin: 0px;
@@ -8,7 +8,7 @@
 
 body {
   margin: 0;
-  font-family: "Questrial", sans-serif !important;
+  font-family: "Noto Sans JP", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow: auto;

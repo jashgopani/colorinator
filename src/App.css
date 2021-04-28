@@ -2,7 +2,6 @@
 
 @media only screen and (max-width: 480px) {
   .App {
-    padding-bottom: 10vh;
     overflow: scroll;
   }
   svg {
@@ -22,12 +21,41 @@
   }
 }
 
+h1 {
+  font-size: xx-large;
+}
+
+h2 {
+  font-size: x-large;
+}
+
+h3 {
+  font-size: larger;
+}
+
+h4 {
+  font-size: large;
+}
+
+h5 {
+  font-size: medium;
+}
+
+h6 {
+  font-size: small;
+}
+
 .App {
   display: flex;
   flex-flow: column wrap;
-  justify-content: flex-start;
+  justify-content: space-evenly;
   align-content: stretch;
   align-items: stretch;
+  gap: 2rem;
+}
+
+.App > * {
+  margin: 0px !important;
 }
 
 nav {
@@ -50,7 +78,7 @@ section.header-strip {
 }
 
 section.header-strip > * {
-  flex: 0 1 auto;
+  flex: 0 1 auto !important;
   align-self: center;
   justify-self: center;
 }
@@ -74,6 +102,7 @@ section.controls {
   justify-content: center;
   align-items: stretch;
   text-align: start;
+  padding: 1rem;
   gap: 2rem;
 }
 
@@ -86,19 +115,20 @@ section.controls > * {
 }
 
 .colorpicker {
-  flex: 0 1 auto !important;
+  flex: 2 2 auto !important;
 }
 
-.controls {
-  display: flex;
-  flex-flow: row wrap;
+.color-controls {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* flex-flow: row wrap; */
   gap: 1rem;
   justify-content: center;
   align-content: stretch;
   flex: 0 1 auto !important;
 }
 
-.controls > * {
+.color-controls > * {
   flex: 1 1 auto;
 }
 
@@ -107,62 +137,93 @@ section.controls > * {
 }
 
 section.palette {
+  margin: 0px !important;
   align-self: stretch;
-  margin-top: 2rem;
   display: flex;
   flex-flow: column wrap;
   justify-content: center;
   align-content: stretch;
-  align-items: stretch;
+  align-items: center;
   text-align: center;
-  gap: 1rem;
-  border-radius: 0.5rem;
+  gap: 2rem;
 }
 
 .pallete-items {
   display: flex;
   flex-flow: row wrap;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
   gap: 2rem;
 }
 
-.pallete-item {
+.palette-item-container {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-evenly;
+  align-items: stretch;
+  border-radius: 20px;
   overflow: hidden;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: auto;
-  grid-template-areas: "primary secondary accent";
-  min-width: 12rem;
-  height: 12rem;
-  border: 8px solid white;
-  box-shadow: 2px 2px 3px #bebebe;
+  background-color: ivory;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  text-align: center !important;
+  position: relative;
+}
+
+.palette-controls-container {
+  display: none;
+  position: absolute;
+}
+.palette-controls-container > * {
+  flex: 1 1 auto;
+}
+.pallete-colors {
+  display: flex;
+  flex-flow: column nowrap;
+  border-radius: inherit;
+  width: 12rem;
+  min-height: 18rem;
+  letter-spacing: 2px;
+}
+
+.pallete-colors > * {
+  align-items: center !important;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .pallete-item-primary {
   grid-area: primary;
+  flex: 6 1 !important;
 }
 
 .pallete-item-secondary {
   grid-area: secondary;
-  padding: 1rem;
+  flex: 3 1 auto !important;
 }
 
 .pallete-item-accent {
   grid-area: accent;
-  padding: 1rem;
+  flex: 1 1 auto !important;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 1rem;
 }
 
 input[type="text"] {
   padding: 1rem;
   font-size: large;
-  border-radius: 0.5rem;
+  border-radius: 2rem;
   outline: none;
-  /* border: none; */
 }
 
 button {
-  border-radius: 0.5rem;
+  border-radius: 2rem;
   padding: 0.8rem;
   font-size: large;
   border: none;
@@ -174,5 +235,10 @@ button:hover {
 
 .circle {
   border-radius: 100%;
-  padding: 2rem;
+  min-width: 1.5rem;
+  min-height: 1.5rem;
+}
+
+.no-border {
+  border: 2px solid transparent !important;
 }

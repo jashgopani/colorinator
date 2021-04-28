@@ -3,11 +3,10 @@ import { useState } from "react";
 import * as utils from "./utils";
 import { ReactComponent as ColorSchemeSvg } from "./colorPalette.svg";
 import PaletteItem from "./PaletteItem";
-import ColorSchemeImage from "./colorScheme.png";
 import Button from "./components/Button";
 
 function App() {
-  const [stylePrimary, setStylePrimary] = useState(false);
+  const [stylePrimary, setStylePrimary] = useState(true);
   const [currentTheme, setCurrentTheme] = useState(utils.randomTheme());
   const [savedThemePalettes, setSavedThemePalettes] = useState(
     fetchSavedThemes
@@ -23,7 +22,7 @@ function App() {
     const primary = currentTheme.primary.hex;
     const secondary = currentTheme.secondary.hex;
     const accent = currentTheme.accent.hex;
-    saved[lastIndex] = {
+    saved[primary + secondary + accent] = {
       primary,
       secondary,
       accent,
@@ -48,23 +47,38 @@ function App() {
   };
 
   function getPrimaryStyle() {
-    return stylePrimary ? primaryBgCss : secondaryBgCss;
-  }
-
-  function getSecondaryStyle() {
-    return stylePrimary ? secondaryBgCss : primaryBgCss;
+    return stylePrimary ? "primary" : "secondary";
   }
 
   function getButtonTheme() {
     return stylePrimary ? "secondary" : "primary";
   }
 
+  function getInputTheme() {
+    const ost = utils.getOppositeStyle(getPrimaryStyle());
+    const ipt = utils.getCss("primary",
+      currentTheme,
+      false);
+    if (!stylePrimary) {
+      ipt.backgroundColor = currentTheme.secondary.hex;
+      ipt.border = `2px solid ${currentTheme[ost].hex}`
+    }
+    return {
+      ...ipt,
+      "backgroundColor": currentTheme.secondary.hex,
+      "border": `2px solid ${currentTheme[ost].hex}`
+
+    }
+  }
+
   function fetchSavedThemes() {
     if (localStorage.getItem("colorinator")) {
       return Object.values(
         JSON.parse(localStorage.getItem("colorinator") ?? "{}")
-      ).map((value) => {
-        return <PaletteItem key={value.primary.hex} theme={value} />;
+      ).map((value, index) => {
+        const k = "" + value.primary + value.secondary + value.accent;
+        console.log("savedThemeKey", index, k);
+        return <PaletteItem theme={value} stylePrimary key={k} />;
       });
     }
 
@@ -72,8 +86,11 @@ function App() {
   }
 
   return (
-    <div className="App" style={getPrimaryStyle()}>
-      {console.log("currentTheme", currentTheme)}
+    <div
+      className="App"
+      style={utils.getCss(getPrimaryStyle(), currentTheme, false)}
+    >
+      {console.log("currentTheme", currentTheme, utils.contrast(currentTheme.primary, currentTheme.secondary))}
 
       {/* Header */}
       <nav>
@@ -89,33 +106,24 @@ function App() {
         {/* Input Section */}
         <section className="controls">
           <h2 className="tag">Generate quick themes for your projects !</h2>
+
           <input
             type="text"
             className="colorpicker"
             placeholder="Enter Hex Code"
-            style={utils.getCss(
-              stylePrimary ? "secondary" : "primary",
-              currentTheme,
-              true
-            )}
+            maxLength="7"
+            style={getInputTheme()}
+            onKeyUp={(e) => {
+              let ip = e.target.value.substring(0, 7);
+              if (ip.substring(0, 1) !== "#" && ip.length == 6) {
+                e.target.value = "#" + ip.substring(0, 6);
+              } else if (ip.substring(0, 1) === "#") {
+                e.target.value = ip;
+              }
+            }}
           />
-          <div className="controls">
-            <Button
-              theme={currentTheme}
-              className="circle"
-              style={stylePrimary ? "primary" : "secondary"}
-              onClick={() => {
-                const newIndex =
-                  history.index - 1 < 0 ? history.index : history.index - 1;
-                setHistory({
-                  ...history,
-                  index: newIndex,
-                });
-                setCurrentTheme(history.themes[newIndex]);
-              }}
-            >
-              <i className="fas fa-chevron-left"></i>
-            </Button>
+
+          <div className="color-controls">
             <Button
               theme={currentTheme}
               className="control-item rounded"
@@ -136,7 +144,6 @@ function App() {
               theme={currentTheme}
               className="control-item"
               style={getButtonTheme()}
-              outline
               onClick={() => {
                 const newTheme = utils.randomTheme();
                 setHistory({
@@ -151,8 +158,23 @@ function App() {
 
             <Button
               theme={currentTheme}
-              className="circle"
-              style={stylePrimary ? "primary" : "secondary"}
+              style={getButtonTheme()}
+              onClick={() => {
+                const newIndex =
+                  history.index - 1 < 0 ? history.index : history.index - 1;
+                setHistory({
+                  ...history,
+                  index: newIndex,
+                });
+                setCurrentTheme(history.themes[newIndex]);
+              }}
+            >
+              <i className="fas fa-chevron-left"></i>
+            </Button>
+
+            <Button
+              theme={currentTheme}
+              style={getButtonTheme()}
               onClick={() => {
                 const newIndex = (history.index + 1) % history.themes.length;
                 setHistory({
@@ -179,11 +201,14 @@ function App() {
       </section>
 
       {/* Palette Section  */}
-      <section className="palette">
+      <section className="palette" >
         <h1>Saved Themes</h1>
         <div className="pallete-items">{savedThemePalettes}</div>
       </section>
-      <div></div>
+
+      <footer style={utils.getCss("accent", currentTheme, false)}>
+        <h3>© Jash Gopani</h3>
+      </footer>
     </div>
   );
 }
