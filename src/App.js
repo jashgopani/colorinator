@@ -77,7 +77,6 @@ function App() {
         JSON.parse(localStorage.getItem("colorinator") ?? "{}")
       ).map((value, index) => {
         const k = "" + value.primary + value.secondary + value.accent;
-        console.log("savedThemeKey", index, k);
         return <PaletteItem theme={value} stylePrimary key={k} />;
       });
     }

@@ -11,8 +11,8 @@ export default function Button(props) {
             style={utils.getCss(props.style, props.theme, !hovered)}
             onClick={props.onClick}
             className={props.className ?? ""}
-            onMouseEnter={handleMouseHover}
-            onMouseLeave={handleMouseHover}
+            onPointerEnter={handleMouseHover}
+            onPointerLeave={handleMouseHover}
         >
             {props.icon}
             {props.icon && <>&nbsp;&nbsp;&nbsp;</>}

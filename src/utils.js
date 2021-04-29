@@ -95,7 +95,6 @@ export function hex2hsl(hex) {
 }
 
 export function generateThemeColors(color, oppositeAccent) {
-    console.log("generateThemeColors2");
     const primary = new Color(color.hex);
     const secondary = new Color(color.hex);
     const accent = new Color(color.hex);
