@@ -18,7 +18,6 @@ function App() {
 
   function saveCurrentTheme() {
     const saved = JSON.parse(localStorage.getItem("colorinator") ?? "{}");
-    const lastIndex = Object.keys(saved).length + 1;
     const primary = currentTheme.primary.hex;
     const secondary = currentTheme.secondary.hex;
     const accent = currentTheme.accent.hex;
@@ -31,21 +30,10 @@ function App() {
     setSavedThemePalettes(fetchSavedThemes());
   }
 
-  const primaryBgCss = {
-    background: currentTheme.primary.hex,
-    color: utils.getContrastingColor(currentTheme.primary).hex,
-  };
-
-  const secondaryBgCss = {
-    background: currentTheme.secondary.hex,
-    color: utils.getContrastingColor(currentTheme.secondary).hex,
-  };
-
-  const accentBgCss = {
-    background: currentTheme.accent.hex,
-    color: utils.getContrastingColor(currentTheme.accent).hex,
-  };
-
+  /**
+   * Get the theme color's key which is applied to 60% of the UI
+   * @returns String
+   */
   function getPrimaryStyle() {
     return stylePrimary ? "primary" : "secondary";
   }
@@ -53,6 +41,7 @@ function App() {
   function getButtonTheme() {
     return stylePrimary ? "secondary" : "primary";
   }
+
   function getInputTheme() {
     const ost = utils.getOppositeStyle(getPrimaryStyle());
     const ipt = utils.getCss("primary",
@@ -69,6 +58,11 @@ function App() {
 
     }
   }
+
+  /**
+   * Fetch and map all the saved themes to palette items
+   * @returns Array<PaletteItem>
+   */
   function fetchSavedThemes() {
     if (localStorage.getItem("colorinator")) {
       return Object.values(
@@ -87,7 +81,6 @@ function App() {
       className="App"
       style={utils.getCss(getPrimaryStyle(), currentTheme, false)}
     >
-      {console.log("currentTheme", currentTheme, utils.contrast(currentTheme.primary, currentTheme.secondary))}
 
       {/* Header */}
       <nav>

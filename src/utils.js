@@ -101,48 +101,6 @@ export function rgbToHex(r, g, b) {
     return "#" + r + g + b;
 }
 
-/**
- * Get opposite value of number in a given range
- * @param {Number} num Number whose opposite value is to be calculated
- * @param {Number} min Starting value of range
- * @param {Number} max Ending Value of range
- * @returns Number
- */
-function oppositeValueInRange(num, min, max) {
-    return min + (max - num);
-}
-
-
-/**
- * Get brightness value of color
- * @param {Color} color Color whose luminance is to be calculated
- * @returns Float
- */
-function luminance(color) {
-    const r = color.r;
-    const g = color.g;
-    const b = color.b;
-
-    var a = [r, g, b].map(function (v) {
-        v /= 255;
-        return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
-    });
-    return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
-}
-
-/**
- * Calculate the contrast between 2 colors
- * @param {Color} color1 First Color Object
- * @param {Color} color2 Second Color Object
- * @returns Float
- */
-export function contrast(color1, color2) {
-    var lum1 = luminance(color1);
-    var lum2 = luminance(color2);
-    var brightest = Math.max(lum1, lum2);
-    var darkest = Math.min(lum1, lum2);
-    return (brightest + 0.05) / (darkest + 0.05);
-}
 
 /**
  * Get contrasting color for a given color
@@ -204,4 +162,47 @@ export function getCss(style, theme, outline) {
         color,
         border: outline ? "2px solid " + color : "none",
     };
+}
+
+/**
+ * Get opposite value of number in a given range
+ * @param {Number} num Number whose opposite value is to be calculated
+ * @param {Number} min Starting value of range
+ * @param {Number} max Ending Value of range
+ * @returns Number
+ */
+function oppositeValueInRange(num, min, max) {
+    return min + (max - num);
+}
+
+
+/**
+ * Get brightness value of color
+ * @param {Color} color Color whose luminance is to be calculated
+ * @returns Float
+ */
+function luminance(color) {
+    const r = color.r;
+    const g = color.g;
+    const b = color.b;
+
+    var a = [r, g, b].map(function (v) {
+        v /= 255;
+        return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+    });
+    return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+}
+
+/**
+ * Calculate the contrast between 2 colors
+ * @param {Color} color1 First Color Object
+ * @param {Color} color2 Second Color Object
+ * @returns Float
+ */
+function contrast(color1, color2) {
+    var lum1 = luminance(color1);
+    var lum2 = luminance(color2);
+    var brightest = Math.max(lum1, lum2);
+    var darkest = Math.min(lum1, lum2);
+    return (brightest + 0.05) / (darkest + 0.05);
 }
