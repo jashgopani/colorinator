@@ -48,51 +48,6 @@ export function randomColor() {
     return color;
 }
 
-export function hex2hsl(hex) {
-    let r = new Number("0x" + hex.substring(1, 3)).toString(10);
-    let g = new Number("0x" + hex.substring(3, 5)).toString(10);
-    let b = new Number("0x" + hex.substring(5, 7)).toString(10);
-
-    // Make r, g, and b fractions of 1
-    r /= 255;
-    g /= 255;
-    b /= 255;
-
-    // Find greatest and smallest channel values
-    let cmin = Math.min(r, g, b);
-    let cmax = Math.max(r, g, b);
-    let delta = cmax - cmin;
-    let h = 0;
-    let s = 0;
-    let l = 0;
-
-    // Calculate hue
-    // No difference
-    if (delta == 0) h = 0;
-    // Red is max
-    else if (cmax == r) h = ((g - b) / delta) % 6;
-    // Green is max
-    else if (cmax == g) h = (b - r) / delta + 2;
-    // Blue is max
-    else h = (r - g) / delta + 4;
-
-    h = Math.round(h * 60);
-
-    // Make negative hues positive behind 360°
-    if (h < 0) h += 360;
-
-    // Calculate lightness
-    l = (cmax + cmin) / 2;
-
-    // Calculate saturation
-    s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
-
-    // Multiply l and s by 100
-    s = +(s * 100).toFixed(1);
-    l = +(l * 50).toFixed(1);
-
-    return { h, s, l };
-}
 
 export function generateThemeColors(color, oppositeAccent) {
     const primary = new Color(color.hex);
@@ -137,7 +92,7 @@ export function getCss(style, theme, outline) {
             ).hex;
     }
 
-    if (style === 'accent' && outline) {
+    if (style === "accent" && outline) {
         console.log("accent button util", outline);
         backgroundColor = getContrastingColor(theme.accent);
         color = theme.accent.hex;
@@ -146,8 +101,27 @@ export function getCss(style, theme, outline) {
     return {
         backgroundColor,
         color,
-        border: outline ? "2px solid " + color : "2px solid transparent",
+        border: outline ? "2px solid " + color : "none",
     };
+}
+
+/* Get basic style for element based on the passed background color */
+export function getBasicStyle(elementBackground, currentTheme, specificFontColor) {
+    //set current bg
+    const backgroundColor = currentTheme[elementBackground].hex;
+
+    //default font color will be contrasting color of background color
+    //if we explicitly pass a color for font, we set that
+    const oppositeStyle = getOppositeStyle(elementBackground);
+    let fontColor = getContrastingColor(elementBackground).hex;
+    if (fontColor !== null) {
+        fontColor = currentTheme[specificFontColor].hex;
+    }
+
+    return {
+        backgroundColor,
+        color: fontColor
+    }
 }
 
 function oppositeValueInRange(num, min, max) {
@@ -161,25 +135,21 @@ function luminance(color) {
 
     var a = [r, g, b].map(function (v) {
         v /= 255;
-        return v <= 0.03928
-            ? v / 12.92
-            : Math.pow((v + 0.055) / 1.055, 2.4);
+        return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
     });
     return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
 }
+
 export function contrast(color1, color2) {
     var lum1 = luminance(color1);
     var lum2 = luminance(color2);
     var brightest = Math.max(lum1, lum2);
     var darkest = Math.min(lum1, lum2);
-    return (brightest + 0.05)
-        / (darkest + 0.05);
+    return (brightest + 0.05) / (darkest + 0.05);
 }
-
 
 export function getOppositeStyle(style) {
     if (style === "primary") return "secondary";
     else if (style === "secondary") return "primary";
-
     return "secondary";
 }

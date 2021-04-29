@@ -1,9 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap");
 
 @media only screen and (max-width: 480px) {
-  .App {
-    overflow: scroll;
-  }
   svg {
     width: 80vw;
     height: 80vw;
@@ -49,10 +46,9 @@ h6 {
   height: 100%;
   display: flex;
   flex-flow: column wrap;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-content: stretch;
-  align-items: stretch;
-  gap: 2rem;
+  /* gap: 2rem; */
 }
 
 .App > * {
@@ -114,27 +110,82 @@ section.controls > * {
 .tag {
   flex: 0 1 auto !important;
 }
-
+.input-box {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  background-color: aliceblue;
+  border-radius: 2.5rem;
+  padding: 0.25rem;
+}
+.input-box > input[type="text"] {
+  flex: 1 1 auto;
+  color: black !important;
+}
+.input-box > button {
+  flex: 0 1 auto;
+}
+/* 
 .colorpicker {
   flex: 2 2 auto !important;
-}
+} */
 
 .color-controls {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  /* flex-flow: row wrap; */
-  gap: 1rem;
-  justify-content: center;
-  align-content: stretch;
-  flex: 0 1 auto !important;
+  justify-content: space-around;
+  align-content: center;
+  display: flex;
+  flex-flow: row wrap;
 }
 
-.color-controls > * {
-  flex: 1 1 auto;
+.color-controls > button {
+  flex: 0 1 auto;
+  font-size: large;
 }
 
-.save {
-  flex: 0 1 auto !important;
+i {
+  text-align: center;
+}
+
+button {
+  position: relative !important;
+}
+
+button:focus {
+  outline: none;
+}
+
+button > .tooltip {
+  display: none;
+  position: absolute;
+  width: max-content;
+  z-index: 3;
+  padding: 0.5rem 1rem;
+  top: -69%;
+  left: -45%;
+  background-color: rgba(0, 0, 0, 1);
+  border-radius: 1rem;
+  font-size: small;
+  color: ivory;
+}
+
+.tooltip::after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  padding: 10px;
+  background-color: inherit;
+  transform: rotateZ(45deg);
+  left: 40%;
+  right: 0px;
+  bottom: 0px;
+  border-radius: 0px;
+  position: absolute;
+  z-index: -1;
+}
+
+button:hover .tooltip {
+  display: block;
 }
 
 section.palette {
@@ -155,6 +206,7 @@ section.palette {
   align-items: stretch;
   justify-content: center;
   gap: 2rem;
+  padding: 1rem;
 }
 
 .palette-item-container {
@@ -235,11 +287,12 @@ button:hover {
 }
 
 .circle {
-  border-radius: 100%;
-  min-width: 1.5rem;
-  min-height: 1.5rem;
+  border-radius: 50%;
+  min-width: 4rem;
+  min-height: 4rem;
+  text-align: center;
 }
 
 .no-border {
-  border: 2px solid transparent !important;
+  /* border: 2px solid transparent !important; */
 }

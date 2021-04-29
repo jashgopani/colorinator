@@ -53,7 +53,6 @@ function App() {
   function getButtonTheme() {
     return stylePrimary ? "secondary" : "primary";
   }
-
   function getInputTheme() {
     const ost = utils.getOppositeStyle(getPrimaryStyle());
     const ipt = utils.getCss("primary",
@@ -70,7 +69,6 @@ function App() {
 
     }
   }
-
   function fetchSavedThemes() {
     if (localStorage.getItem("colorinator")) {
       return Object.values(
@@ -106,42 +104,45 @@ function App() {
         <section className="controls">
           <h2 className="tag">Generate quick themes for your projects !</h2>
 
-          <input
-            type="text"
-            className="colorpicker"
-            placeholder="Enter Hex Code"
-            maxLength="7"
-            style={getInputTheme()}
-            onKeyUp={(e) => {
-              let ip = e.target.value.substring(0, 7);
-              if (ip.substring(0, 1) !== "#" && ip.length == 6) {
-                e.target.value = "#" + ip.substring(0, 6);
-              } else if (ip.substring(0, 1) === "#") {
-                e.target.value = ip;
-              }
-            }}
-          />
-
-          <div className="color-controls">
+          <div className="input-box colorpicker" >
+            <input
+              type="text"
+              className="colorpicker"
+              placeholder="Enter Hex Code"
+              maxLength="7"
+              style={getInputTheme()}
+              onKeyUp={(e) => {
+                let ip = e.target.value.substring(0, 7);
+                if (ip.substring(0, 1) !== "#" && ip.length == 6) {
+                  e.target.value = "#" + ip.substring(0, 6);
+                } else if (ip.substring(0, 1) === "#") {
+                  e.target.value = ip;
+                }
+              }}
+            />
             <Button
               theme={currentTheme}
-              className="control-item rounded"
-              style={getButtonTheme()}
+              className="circle"
+              style="accent"
               onClick={() => {
                 setStylePrimary(!stylePrimary);
               }}
               icon={
                 stylePrimary ? (
-                  <i className="far fa-window-maximize"></i>
+                  <i className="fas fa-moon"></i>
                 ) : (
-                  <i className="fas fa-window-maximize"></i>
+                  <i className="far fa-moon"></i>
                 )
               }
-              innerHtml="Invert theme"
+              tooltip="Invert Theme"
             />
+          </div>
+
+          <div className="color-controls">
+
             <Button
               theme={currentTheme}
-              className="control-item"
+              className="circle"
               style={getButtonTheme()}
               onClick={() => {
                 const newTheme = utils.randomTheme();
@@ -151,13 +152,15 @@ function App() {
                 });
                 setCurrentTheme(newTheme);
               }}
+              tooltip="Random Theme"
             >
-              <i className="fas fa-random"></i>&nbsp;&nbsp;&nbsp;Shuffle Colors
+              <i className="fas fa-random"></i>
             </Button>
 
             <Button
               theme={currentTheme}
               style={getButtonTheme()}
+              className="circle"
               onClick={() => {
                 const newIndex =
                   history.index - 1 < 0 ? history.index : history.index - 1;
@@ -167,6 +170,7 @@ function App() {
                 });
                 setCurrentTheme(history.themes[newIndex]);
               }}
+              tooltip="Previous Theme"
             >
               <i className="fas fa-chevron-left"></i>
             </Button>
@@ -174,6 +178,7 @@ function App() {
             <Button
               theme={currentTheme}
               style={getButtonTheme()}
+              className="circle"
               onClick={() => {
                 const newIndex = (history.index + 1) % history.themes.length;
                 setHistory({
@@ -183,19 +188,21 @@ function App() {
 
                 setCurrentTheme(history.themes[newIndex]);
               }}
+              tooltip="Next Theme"
             >
               <i className="fas fa-chevron-right"></i>
             </Button>
-          </div>
 
-          <Button
-            theme={currentTheme}
-            className="save"
-            style="accent"
-            onClick={saveCurrentTheme}
-          >
-            <i className="fas fa-bookmark"></i>&nbsp;&nbsp;&nbsp;Add to palette
-          </Button>
+            <Button
+              theme={currentTheme}
+              className="circle"
+              style="accent"
+              onClick={saveCurrentTheme}
+              tooltip="Save Theme"
+            >
+              <i className="fas fa-bookmark"></i>
+            </Button>
+          </div>
         </section>
       </section>
 
