@@ -121,6 +121,7 @@ section.controls > * {
 }
 .input-box > input[type="text"] {
   flex: 1 1 auto;
+  mix-blend-mode: luminosity;
 }
 .input-box > button {
   flex: 0 1 auto;

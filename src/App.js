@@ -138,7 +138,7 @@ function App() {
             <Button
               theme={currentTheme}
               className="circle"
-              style="accent"
+              style={getPrimaryStyle()}
               onClick={() => {
                 setStylePrimary(!stylePrimary);
               }}
@@ -208,7 +208,7 @@ function App() {
             <Button
               theme={currentTheme}
               className="circle"
-              style="accent"
+              style={getButtonTheme()}
               onClick={saveCurrentTheme}
               tooltip="Save Theme"
             >
