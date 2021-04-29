@@ -73,8 +73,8 @@ export function getBasicStyle(
     //default font color will be contrasting color of background color
     //if we explicitly pass a color for font, we set that
     const oppositeStyle = getOppositeStyle(elementBackground);
-    let fontColor = getContrastingColor(elementBackground).hex;
-    if (fontColor !== null) {
+    let fontColor = getContrastingColor(currentTheme[elementBackground]).hex;
+    if (specificFontColor !== null) {
         fontColor = currentTheme[specificFontColor].hex;
     }
 

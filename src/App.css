@@ -121,7 +121,6 @@ section.controls > * {
 }
 .input-box > input[type="text"] {
   flex: 1 1 auto;
-  color: black !important;
 }
 .input-box > button {
   flex: 0 1 auto;
@@ -273,6 +272,8 @@ input[type="text"] {
   font-size: large;
   border-radius: 2rem;
   outline: none;
+  border: none;
+  background-color: inherit;
 }
 
 button {

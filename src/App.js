@@ -4,6 +4,7 @@ import * as utils from "./utils";
 import { ReactComponent as ColorSchemeSvg } from "./colorPalette.svg";
 import PaletteItem from "./PaletteItem";
 import Button from "./components/Button";
+import Color from "jscolor";
 
 function App() {
   const [stylePrimary, setStylePrimary] = useState(true);
@@ -44,19 +45,16 @@ function App() {
 
   function getInputTheme() {
     const ost = utils.getOppositeStyle(getPrimaryStyle());
-    const ipt = utils.getCss("primary",
-      currentTheme,
-      false);
+    const ipt = utils.getCss("primary", currentTheme, false);
     if (!stylePrimary) {
       ipt.backgroundColor = currentTheme.secondary.hex;
-      ipt.border = `2px solid ${currentTheme[ost].hex}`
+      ipt.border = `2px solid ${currentTheme[ost].hex}`;
     }
     return {
       ...ipt,
-      "backgroundColor": currentTheme.secondary.hex,
-      "border": `2px solid ${currentTheme[ost].hex}`
-
-    }
+      backgroundColor: currentTheme.secondary.hex,
+      border: `2px solid ${currentTheme[ost].hex}`,
+    };
   }
 
   /**
@@ -76,12 +74,18 @@ function App() {
     return <p>You haven't added any themes to your palette yet !</p>;
   }
 
+  function updateHistory(newTheme) {
+    setHistory({
+      index: history.index + 1,
+      themes: [...history.themes, newTheme],
+    });
+  }
+
   return (
     <div
       className="App"
-      style={utils.getCss(getPrimaryStyle(), currentTheme, false)}
+      style={utils.getBasicStyle(getPrimaryStyle(), currentTheme, null)}
     >
-
       {/* Header */}
       <nav>
         <h1 className="nav-brand"> Colorinator</h1>
@@ -97,19 +101,37 @@ function App() {
         <section className="controls">
           <h2 className="tag">Generate quick themes for your projects !</h2>
 
-          <div className="input-box colorpicker" >
+          <div
+            className="input-box colorpicker"
+            style={utils.getBasicStyle(
+              getButtonTheme(),
+              currentTheme,
+              "primary"
+            )}
+          >
             <input
               type="text"
               className="colorpicker"
               placeholder="Enter Hex Code"
               maxLength="7"
-              style={getInputTheme()}
+              style={{
+                color: utils.getBasicStyle(
+                  getButtonTheme(),
+                  currentTheme,
+                  null
+                )["color"],
+              }}
               onKeyUp={(e) => {
                 let ip = e.target.value.substring(0, 7);
                 if (ip.substring(0, 1) !== "#" && ip.length == 6) {
                   e.target.value = "#" + ip.substring(0, 6);
                 } else if (ip.substring(0, 1) === "#") {
                   e.target.value = ip;
+                }
+                if (ip.length === 7) {
+                  const newTheme = utils.generateThemeColors(new Color(ip));
+                  updateHistory(newTheme);
+                  setCurrentTheme(newTheme);
                 }
               }}
             />
@@ -132,17 +154,13 @@ function App() {
           </div>
 
           <div className="color-controls">
-
             <Button
               theme={currentTheme}
               className="circle"
               style={getButtonTheme()}
               onClick={() => {
                 const newTheme = utils.randomTheme();
-                setHistory({
-                  index: history.index + 1,
-                  themes: [...history.themes, newTheme],
-                });
+                updateHistory(newTheme);
                 setCurrentTheme(newTheme);
               }}
               tooltip="Random Theme"
@@ -156,7 +174,8 @@ function App() {
               className="circle"
               onClick={() => {
                 const newIndex =
-                  history.index - 1 < 0 ? history.index : history.index - 1;
+                  history.index === 0 ? (history.themes.length - 1) : history.index - 1;
+                console.log('newIndex', newIndex);
                 setHistory({
                   ...history,
                   index: newIndex,
@@ -200,7 +219,7 @@ function App() {
       </section>
 
       {/* Palette Section  */}
-      <section className="palette" >
+      <section className="palette">
         <h1>Saved Themes</h1>
         <div className="pallete-items">{savedThemePalettes}</div>
       </section>

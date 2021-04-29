@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import contrast, * as utils from "../utils";
 export default function Button(props) {
+    const [buttonStyle, setButtonStyle] = useState();
     const [hovered, setHovered] = useState(!props.outline);
     function handleMouseHover(e) {
-        setHovered(!hovered)
+        //@TODO - update font color of button
     }
     return (
         <>
             <button
-                style={utils.getCss(props.style, props.theme, !hovered)}
+                style={utils.getBasicStyle(props.style, props.theme, null)}
                 onClick={props.onClick}
                 className={props.className ?? ""}
                 onPointerEnter={handleMouseHover}
