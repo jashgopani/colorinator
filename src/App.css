@@ -1,6 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap");
 
 @media only screen and (max-width: 480px) {
+  .App {
+    overflow: scroll;
+  }
   svg {
     width: 80vw;
     height: 80vw;
@@ -280,7 +283,7 @@ input[type="text"] {
 button {
   border-radius: 2rem;
   padding: 0.8rem;
-  font-size: large;
+  font-size: medium;
   border: none;
 }
 
