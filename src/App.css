@@ -298,3 +298,23 @@ button:hover {
 .no-border {
   /* border: 2px solid transparent !important; */
 }
+
+a:link {
+  text-decoration: none;
+  color: unset;
+}
+
+a:visited {
+  text-decoration: none;
+  color: unset;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: unset;
+}
+
+a:active {
+  text-decoration: underline;
+  color: unset;
+}

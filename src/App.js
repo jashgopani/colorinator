@@ -224,8 +224,8 @@ function App() {
         <div className="pallete-items">{savedThemePalettes}</div>
       </section>
 
-      <footer style={utils.getCss("accent", currentTheme, false)}>
-        <h3>© Jash Gopani</h3>
+      <footer style={utils.getBasicStyle("accent", currentTheme, null)}>
+        <h3><a href="https://github.com/jashgopani/"> © Jash Gopani</a></h3>
       </footer>
     </div>
   );
