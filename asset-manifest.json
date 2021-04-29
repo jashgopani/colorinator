@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/colorinator/static/css/main.6d12e78c.chunk.css",
-    "main.js": "/colorinator/static/js/main.d3603251.chunk.js",
-    "main.js.map": "/colorinator/static/js/main.d3603251.chunk.js.map",
+    "main.css": "/colorinator/static/css/main.7d667c7e.chunk.css",
+    "main.js": "/colorinator/static/js/main.91dda827.chunk.js",
+    "main.js.map": "/colorinator/static/js/main.91dda827.chunk.js.map",
     "runtime-main.js": "/colorinator/static/js/runtime-main.6fe1d51f.js",
     "runtime-main.js.map": "/colorinator/static/js/runtime-main.6fe1d51f.js.map",
-    "static/js/2.bac614e9.chunk.js": "/colorinator/static/js/2.bac614e9.chunk.js",
-    "static/js/2.bac614e9.chunk.js.map": "/colorinator/static/js/2.bac614e9.chunk.js.map",
+    "static/js/2.91c7adf1.chunk.js": "/colorinator/static/js/2.91c7adf1.chunk.js",
+    "static/js/2.91c7adf1.chunk.js.map": "/colorinator/static/js/2.91c7adf1.chunk.js.map",
     "static/js/3.d7df1bf6.chunk.js": "/colorinator/static/js/3.d7df1bf6.chunk.js",
     "static/js/3.d7df1bf6.chunk.js.map": "/colorinator/static/js/3.d7df1bf6.chunk.js.map",
     "index.html": "/colorinator/index.html",
-    "static/css/main.6d12e78c.chunk.css.map": "/colorinator/static/css/main.6d12e78c.chunk.css.map",
-    "static/js/2.bac614e9.chunk.js.LICENSE.txt": "/colorinator/static/js/2.bac614e9.chunk.js.LICENSE.txt",
+    "static/css/main.7d667c7e.chunk.css.map": "/colorinator/static/css/main.7d667c7e.chunk.css.map",
+    "static/js/2.91c7adf1.chunk.js.LICENSE.txt": "/colorinator/static/js/2.91c7adf1.chunk.js.LICENSE.txt",
     "static/media/colorPalette.a88ca9b2.svg": "/colorinator/static/media/colorPalette.a88ca9b2.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.6fe1d51f.js",
-    "static/js/2.bac614e9.chunk.js",
-    "static/css/main.6d12e78c.chunk.css",
-    "static/js/main.d3603251.chunk.js"
+    "static/js/2.91c7adf1.chunk.js",
+    "static/css/main.7d667c7e.chunk.css",
+    "static/js/main.91dda827.chunk.js"
   ]
 }
