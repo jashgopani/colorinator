@@ -138,13 +138,13 @@ function App() {
             <Button
               theme={currentTheme}
               className="circle"
-              style={getPrimaryStyle()}
+              style={"accent"}
               onClick={() => {
                 setStylePrimary(!stylePrimary);
               }}
               icon={
                 stylePrimary ? (
-                  <i className="fas fa-moon"></i>
+                  <i className="fas fa-sun"></i>
                 ) : (
                   <i className="far fa-moon"></i>
                 )

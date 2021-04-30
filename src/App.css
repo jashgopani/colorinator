@@ -1,23 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap");
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 345px) {
   .App {
-    overflow: scroll;
-  }
-  svg {
-    width: 80vw;
-    height: 80vw;
-    overflow: hidden;
-  }
-
-  .nav-brand {
-    font-size: xx-large;
-  }
-
-  .pallete-item {
-    width: 8rem !important;
-    height: 8rem !important;
-    border: 4px solid white;
+    /* overflow: scroll; */
+    width: fit-content(100vw);
   }
 }
 
@@ -46,23 +32,21 @@ h6 {
 }
 
 .App {
-  height: 100%;
+  min-width: 360px;
+  min-height: 100vh;
   display: flex;
   flex-flow: column wrap;
   justify-content: space-between;
+  justify-items: center;
+  align-items: stretch;
   align-content: stretch;
-  /* gap: 2rem; */
-}
-
-.App > * {
-  margin: 0px !important;
 }
 
 nav {
+  flex: 0 1 auto !important;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 8vh;
   font-size: xx-large;
 }
 .nav-brand {
@@ -74,26 +58,36 @@ section.header-strip {
   flex-flow: row wrap;
   justify-content: space-evenly;
   align-content: center;
-  gap: 1rem;
+  align-items: center;
+  justify-items: stretch;
 }
 
 section.header-strip > * {
-  flex: 0 1 auto !important;
+  flex: 0 1 auto;
   align-self: center;
   justify-self: center;
+  min-width: 0px;
 }
 
 section.svg {
-  flex: 0 0 auto !important;
-  overflow: hidden;
-  align-self: center;
-  justify-self: flex-start;
+  display: flex;
+  text-align: center;
+  height: fit-content;
+  justify-content: center;
+  align-content: center;
+}
+
+svg {
+  max-width: 480px;
+  max-height: 480px;
+  margin: 1rem;
 }
 
 section.svg > * {
   mix-blend-mode: luminosity;
-  max-width: 480px;
+  max-width: 360px;
   margin: 0px;
+  align-self: center;
 }
 
 section.controls {
@@ -107,21 +101,24 @@ section.controls {
 }
 
 section.controls > * {
-  flex: 1 1 auto;
+  flex: 1 0 0px;
+  min-width: 0px;
 }
 
 .tag {
   flex: 0 1 auto !important;
 }
+
 .input-box {
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;
   align-items: stretch;
   background-color: aliceblue;
-  border-radius: 2.5rem;
+  border-radius: 5rem;
   padding: 0.25rem;
 }
+
 .input-box > input[type="text"] {
   flex: 1 1 auto;
   mix-blend-mode: luminosity;
@@ -129,10 +126,6 @@ section.controls > * {
 .input-box > button {
   flex: 0 1 auto;
 }
-/* 
-.colorpicker {
-  flex: 2 2 auto !important;
-} */
 
 .color-controls {
   justify-content: space-around;
@@ -147,6 +140,7 @@ section.controls > * {
 }
 
 i {
+  font-size: large;
   text-align: center;
 }
 
@@ -221,8 +215,7 @@ section.palette {
   overflow: hidden;
   background-color: ivory;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
-  text-align: center !important;
-  position: relative;
+  text-align: center;
 }
 
 .palette-controls-container {
@@ -269,6 +262,7 @@ footer {
   justify-content: center;
   align-items: center;
   padding: 1rem 1rem;
+  width: fit-content(100vw);
 }
 
 input[type="text"] {
@@ -293,13 +287,9 @@ button:hover {
 
 .circle {
   border-radius: 50%;
-  min-width: 4rem;
-  min-height: 4rem;
+  min-width: 3.4em;
+  min-height: 3.4em;
   text-align: center;
-}
-
-.no-border {
-  /* border: 2px solid transparent !important; */
 }
 
 a:link {
@@ -320,4 +310,22 @@ a:hover {
 a:active {
   text-decoration: underline;
   color: unset;
+}
+
+@keyframes rotateExit {
+  from {
+    transform: rotateZ(0);
+  }
+  to {
+    transform: rotateZ(360deg);
+  }
+}
+
+@keyframes rotateEntry {
+  from {
+    transform: rotateZ(90deg);
+  }
+  to {
+    transform: rotateZ(0deg);
+  }
 }
