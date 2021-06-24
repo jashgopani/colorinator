@@ -1,70 +1,34 @@
-# Getting Started with Create React App
+# Colorinator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A quick color palette generator based on the 60-30-10 rule of UI design. 
 
-## Available Scripts
+[![GitHub license](https://img.shields.io/github/license/jashgopani/colorinator?style=for-the-badge)](https://github.com/jashgopani/colorinator)
+[![GitHub stars](https://img.shields.io/github/stars/jashgopani/colorinator?style=for-the-badge)](https://github.com/jashgopani/colorinator/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/jashgopani/colorinator?style=for-the-badge)](https://github.com/jashgopani/colorinator/issues)
+[![GitHub forks](https://img.shields.io/github/forks/jashgopani/colorinator?style=for-the-badge)](https://github.com/jashgopani/colorinator/network)
 
-In the project directory, you can run:
 
-### `npm start`
+![Colorinator Demo Gif](./colorinator-demo.gif)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Features
+- Primary, Secondary and Accent colors are generated
+- Colors generated are **NOT RANDOM** ; they are derived using difference of contrast ratio
+- Font colors used are calculated based on contrast ratio with background color
+- Live preview of invert theme (swapping primary and secondary color)
+- Save themes to local storage for future use
+- Dynamic look of website makes it easy for you to visualize the look and feel of color palette
+- Navigate through the history of color palette
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## How to use ?
+- Simply paste the hex code which you want for your primary color, or click on the **SHUFFLE** button to fetch a primary color for you.
+- The website then generates you the complementary secondary and accent colors and applies to the whole website. 
+- Use the **<** and **>** buttons to traverse through the history of colors generated.
+- Use the **SAVE** button to save the theme locally.
+- The **INVERT THEME** button swaps the primary and secondary color to give you a feel of 30-60-10 effect.
 
-### `npm test`
+## Future Releases
+1. Copy button on saved theme palettes, to individually copy the hex code to clipboard
+2. Import and Export palettes to sync between devices
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Demand a feture / Report a bug
+Raise an issue [here](https://github.com/jashgopani/colorinator/issues) and I'll act upon it based on its feasibilty 🙃
