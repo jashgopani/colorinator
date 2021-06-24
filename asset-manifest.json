@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/colorinator/static/css/main.cb6aee44.chunk.css",
-    "main.js": "/colorinator/static/js/main.353a0c8c.chunk.js",
-    "main.js.map": "/colorinator/static/js/main.353a0c8c.chunk.js.map",
+    "main.css": "/colorinator/static/css/main.8a3f7c08.chunk.css",
+    "main.js": "/colorinator/static/js/main.c3f2496f.chunk.js",
+    "main.js.map": "/colorinator/static/js/main.c3f2496f.chunk.js.map",
     "runtime-main.js": "/colorinator/static/js/runtime-main.6fe1d51f.js",
     "runtime-main.js.map": "/colorinator/static/js/runtime-main.6fe1d51f.js.map",
     "static/js/2.91c7adf1.chunk.js": "/colorinator/static/js/2.91c7adf1.chunk.js",
@@ -10,14 +10,14 @@
     "static/js/3.d7df1bf6.chunk.js": "/colorinator/static/js/3.d7df1bf6.chunk.js",
     "static/js/3.d7df1bf6.chunk.js.map": "/colorinator/static/js/3.d7df1bf6.chunk.js.map",
     "index.html": "/colorinator/index.html",
-    "static/css/main.cb6aee44.chunk.css.map": "/colorinator/static/css/main.cb6aee44.chunk.css.map",
+    "static/css/main.8a3f7c08.chunk.css.map": "/colorinator/static/css/main.8a3f7c08.chunk.css.map",
     "static/js/2.91c7adf1.chunk.js.LICENSE.txt": "/colorinator/static/js/2.91c7adf1.chunk.js.LICENSE.txt",
     "static/media/colorPalette.a88ca9b2.svg": "/colorinator/static/media/colorPalette.a88ca9b2.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.6fe1d51f.js",
     "static/js/2.91c7adf1.chunk.js",
-    "static/css/main.cb6aee44.chunk.css",
-    "static/js/main.353a0c8c.chunk.js"
+    "static/css/main.8a3f7c08.chunk.css",
+    "static/js/main.c3f2496f.chunk.js"
   ]
 }
